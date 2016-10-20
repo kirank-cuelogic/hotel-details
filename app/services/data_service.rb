@@ -6,7 +6,8 @@ class DataService
   end
 
   def data request_action,query_params
-    response = self.get("#{@base_uri}#{request_action}",{query: query_params})
+    token = "Token token=\"#{Rails.application.secrets["mystique"]["token"]}\""
+    response = self.class.get("#{@base_uri}#{request_action}",{query: query_params , :headers => {'Content-Type' => 'application/json', 'Accept' => 'application/json', 'Authorization' => token } } )
   end
 
 end

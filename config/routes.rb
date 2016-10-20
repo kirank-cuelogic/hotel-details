@@ -6,7 +6,9 @@ Rails.application.routes.draw do
   root 'home#show'
 
   resources :hotels do 
-    get :search
+    collection do 
+      get :search
+    end
   end
 
   # Example of regular route:

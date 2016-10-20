@@ -8,10 +8,10 @@ class ApplicationController < ActionController::Base
   rescue_from Errors::MissingParameters, :with => :respond_missing_param
 
   def respond_with_notice
-    flash[:error] = 'Not able to view results.'
+    redirect_to root_path, flash[:error] => 'Not able to view results.'
   end
 
   def respond_missing_param
-    flash[:error] = 'Some paramaters are missing, Please check and try again.'
+    redirect_to root_path, flash[:error] => 'Some paramaters are missing, Please check and try again.'
   end
 end

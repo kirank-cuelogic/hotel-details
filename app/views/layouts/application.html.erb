@@ -7,7 +7,13 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
+<% flash.each do |type, msg|%>
+  <% if msg.present? %>
+    <div class="flash <%= css_class_for type %>">
+      <p class="fl"> <%= msg.try(:html_safe) %> </p>
+    </div>
+  <% end %>
+<% end %>
 <%= yield %>
 
 </body>
