@@ -1,27 +1,26 @@
 <div class="container">
   <!-- include partial here for searching -->
-   <h2>Search hotels and see their details</h2>
-<form class="form-inline" id="serachHotelForm" action="search" method="get">
-  <div class="form-group">
-    <label for="country">Country:</label>
-    <input type="text" class="form-control" id="hotel_country" name="hotel[country]" placeholder="Enter Country">
-  </div>
-  <div class="form-group">
-    <label for="state">State:</label>
-    <input type="text" class="form-control" id="hotel_state" name="hotel[state]" placeholder="Enter State">
-  </div>
-  <div class="form-group">
-    <label for="city">City:</label>
-    <input type="text" class="form-control" id="hotel_city" name="hotel[city]" placeholder="Enter City">
-  </div>
-  <button type="submit" class="btn btn-default" id="search_hotels">Search</button>
-</form>
+  <h2>Search hotels and see their details</h2>
+  <form class="form-inline" id="serachHotelForm" action="search" method="get">
+    <div class="form-group">
+      <label for="country">Country:</label>
+      <input type="text" class="form-control" id="hotel_country" name="hotel[country]" placeholder="Enter Country">
+    </div>
+    <div class="form-group">
+      <label for="state">State:</label>
+      <input type="text" class="form-control" id="hotel_state" name="hotel[state]" placeholder="Enter State">
+    </div>
+    <div class="form-group">
+      <label for="city">City:</label>
+      <input type="text" class="form-control" id="hotel_city" name="hotel[city]" placeholder="Enter City">
+    </div>
+    <button type="submit" class="btn btn-default" id="search_hotels">Search</button>
+  </form>
 </div>
 
-
+<hr>
 <div class="container" id = "serched_hotels">
-  <h2>Available Hotels : </h2>
-             
+  <h4>Available Hotels : </h4>      
   <% if @hotels.blank? %>
     <h2>No record found </h2>
   <% else %>
@@ -36,9 +35,10 @@
       <tbody>
         <% @hotels.try(:each) do |hotel| %>
           <tr class="<%= table_class %>">
-            <td><%= hotel.name %></td>
-            <td><%=hotel.currency %><%= hotel.room_rate %></td>
+            <td title="<%= hotel.amenities.join(",") %>"><%=hotel.name %></td>
+            <td><%=hotel.currency %><%= hotel.room_rate %> per night</td>
             <td><%= hotel.address %>, <%= hotel.city %>,<%= hotel.state_province %>,<%= hotel.country %></td>
+            <td><%= link_to('View Hotel',hotel_path(id:hotel.id,country:hotel.country,city:hotel.city,state:hotel.state_province),:method => 'GET',:style => "background-color: #337ab7;color: white;padding: 5px 15px;font-size: large;font-family: monospace;" ) %></td>
           </tr>
         <% end %>
       </tbody>

@@ -24,5 +24,7 @@ module HotelDetail
     config.autoload_paths += Dir["#{Rails.root}/lib/errors"]
     config.autoload_paths += Dir["#{Rails.root}/app/services"]
     config.active_record.raise_in_transactional_callbacks = true
+
+    # config.time_zone = 'Pacific Time (US & Canada)'
   end
 end

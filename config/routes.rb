@@ -5,7 +5,10 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'home#show'
 
-  resources :hotels do 
+  resources :hotels, only: [:show] do
+    member do 
+      get :check_availability
+    end
     collection do 
       get :search
     end

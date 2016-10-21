@@ -1,0 +1,30 @@
+<div class="container">
+  <h4><%= @hotel.name %><br>(<%= @hotel.address %>,<%= @hotel.city %>,<%= @hotel.state_province %>,<%= @hotel.country %>) </h4> <div style="float:right;position:relative;"><%= link_to('Home',root_path, :method => 'GET' , :style => "font-size:18px;" ) %> |  
+    <%= link_to('Back to Search',search_hotels_path(hotel:{country:@hotel.country,city:@hotel.city,state:@hotel.state_province}), :method => 'GET' ,:style => "font-size:18px;") %></div>
+</div>
+  
+<hr style="color:black">
+<div class="container">
+  <p><%= @hotel.description.html_safe %></p>
+  <div class="panel-group">
+    <% if @rooms.blank? %>
+      <h2>No rooms found </h2>
+    <% else %>
+      <% @rooms.each do |room| %>
+        <div class="panel panel-default">
+          <div class="panel-heading"><h5><%= room.provider_name %></h5> <%= room.name %> (<%= room.category %>) - <b><%= room.average_rate %> Avg. Nightly Rate</b></div>
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-sm-3">
+                <img src="<%= room.images.try(:first)%>" alt="<%= room.name %>"/>
+              </div>
+              <div class="col-sm-7"><p><%= room.description %></p></div>
+              <div class="col-sm-2"><%= link_to('Book',check_availability_hotel_path(hotel:{hotel_id:@hotel.id,country:@hotel.country,city:@hotel.city,state:@hotel.state_province,booking_id:room.booking_id,arrival:room.arrival,departure:room.departure,provider_name:room.provider_name,payment_type:room.payment_type,room_total:room.room_total,grand_total:room.grand_total,room_type:{ name: room.name, room_type_id:room.room_type_id,provider_data: room.room_provider_data }, provider_data:room.provider_data}), :method => 'GET' , :style => "background-color: #337ab7;color: white;padding: 5px 15px;font-size: large;font-family: monospace;" ) %></div>
+            </div>
+          </div>
+          <div class="panel-footer"><%= room.amenities.join(",") %></div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
